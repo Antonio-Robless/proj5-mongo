@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>ACP Controle Times</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/calc.css" />
+</head>
+
+<body>
+<div class="container">
+
+<h1>Saved Controle Times</h1>
+
+{% if error %}
+  <p>{{ error }}</p>
+{% elif not controls %}
+  <p>No controle times in the database</p>
+{% else %}
+  <p>{{ controls[0].brevet_dist_km }}km brevet starting
+     {{ controls[0].begin | pretty_time }}</p>
+  <table class="control_time_table">
+    <tr>
+      <th> Km </th>
+      <th> Miles </th>
+      <th> Location </th>
+      <th> Open </th>
+      <th> Close </th>
+    </tr>
+  {% for control in controls %}
+    <tr class="control">
+      <td>{{ control.km }}</td>
+      <td>{{ control.miles }}</td>
+      <td>{{ control.location }}</td>
+      <td>{{ control.open | pretty_time }}</td>
+      <td>{{ control.close | pretty_time }}</td>
+    </tr>
+  {% endfor %}
+  </table>
+{% endif %}
+
+<br />
+<a href="{{ url_for('index') }}">Back to calculator</a>
+
+</div>
+</body> </html>
